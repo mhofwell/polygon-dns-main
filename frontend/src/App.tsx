@@ -1,8 +1,50 @@
-import React from 'react';
-import logo from './/assets/logo.svg'
-import './App.css';
+import React, { useState, useEffect } from "react";
+import logo from ".//assets/logo.svg";
+import "./App.css";
+import contract from "../contract.config";
+import { ethers } from "ethers";
 
-function App() {
+// To fix this warning, and corresponding compile error, add this declaration at the top level of your file, after imports.
+const CONTRACT_ADDRESS = contract.CONTRACT_ADDRESS;
+
+const App = () => {
+  const [account, setAccount] = useState("");
+  const [ethObjectExists, setEthExists] = useState(false);
+
+  const checkEthObjectExists = () => {
+    const { ethereum } = window;
+    if (ethereum) {
+      setEthExists(true);
+    }
+  };
+
+  useEffect(() => {
+    checkEthObjectExists();
+  }, []);
+
+  const connectWallet = async (ethereum: any) => {
+    try {
+      if (!ethObjectExists) {
+        setEthExists(false);
+        throw new Error(
+          "Please download a browswer wallet to interact with the blockchain."
+        );
+      }
+
+      const userAccounts = await ethereum.request({
+        method: "eth_requestAccounts",
+      });
+
+      console.log("Connected", userAccounts[0]);
+
+      setAccount(userAccounts[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const checkWalletConnection = async () => {};
+
   return (
     <div className="App">
       <header className="App-header">
@@ -21,6 +63,6 @@ function App() {
       </header>
     </div>
   );
-}
+};
 
 export default App;
