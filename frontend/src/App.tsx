@@ -8,9 +8,11 @@ import { ethers } from "ethers";
 const CONTRACT_ADDRESS = contract.CONTRACT_ADDRESS;
 
 const App = () => {
+  // check out react hooks and saving state in axios or something
   const [account, setAccount] = useState("");
   const [ethObjectExists, setEthExists] = useState(false);
 
+  // investigate useCallback
   const checkEthObjectExists = () => {
     const { ethereum } = window;
     if (ethereum) {
