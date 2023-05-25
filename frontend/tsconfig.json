@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
     "target": "es5",
-    // added to target the custom type I created
-    "typeRoots": ["./node_modules/@types", "./src/types"],
     "lib": [
       "dom",
       "dom.iterable",
